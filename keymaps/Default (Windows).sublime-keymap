@@ -1,0 +1,6 @@
+[
+    { 
+    	"keys": ["ctrl+shift+f"],
+    	"command": "fixed_width_formatter"
+    }
+]

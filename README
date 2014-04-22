@@ -1,0 +1,20 @@
+Introduction:
+	This plugin is fairly simple, and is meant to be used to format text to a fixed width while still maintaining clean formatting in places (often web forms or emails) that will not preserve it. The plugin copies whatever text is in the current document and will copy a formatted version below it. The formatted version will split lines when they exceed the defined maximum allowed columns and will ensure the newly created line preserves the indentation.
+
+There are a few files of interest:
+	1. formatter.py: This is the actual plugin, which does all the text manipulation
+	2. Default (*).sublime-keymap: These are key map files, which control the shortcut to run the plugin
+
+Installation:
+	1. Move the "FixedWidthFormatter" folder the Sublime "Packages" directory. For example:
+		(OSX)
+		/Users/{$USERNAME}/Library/Application Support/Sublime Text 2/Packages 
+		(WINDOWS)
+		C:\Documents and Settings\{$USERNAME}\Application Data\Sublime Text\Packages\User
+
+	2. Modify the existing .sublime-keymap files to include an entry that matches one of the .sublime-keymap files packaged with this plugin
+
+
+Usage Notes:
+	Write a document like you normally would. For each line written (e.g., a line ending with the whitespace character '\n') make sure that the indentation you want is being used (e.g, 1 space, a tab, a combination of those, or more) and do not worry about manually breaking lines to keep the formatting preserved. The plugin will do that for you. Then run the plugin using whatever keybinding you choose.
+	
