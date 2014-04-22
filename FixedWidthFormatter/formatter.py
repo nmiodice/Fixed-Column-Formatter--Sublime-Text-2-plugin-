@@ -38,37 +38,20 @@ class line:
             fmtted = fmtted + line + "\n"
         
         return fmtted
-    
-    # not used in this plugin, but it can be used in other contexts. TODO: make
-    # use of the format method instead of the duplicate code below              
-    def printLine(self, file, cols):
-        assert(file.closed == False)
-        lines = textwrap.wrap(self.content, cols - self.indent)
-        
-        # a line that was originally a new line or only blank space will have
-        # been broken up into zero lines by the textwrap module. Therefore, 
-        # a single newline must be printed
-        if len(lines) == 0:
-            file.write("\n")
-            return
-            
-        for _line in lines:
-            file.write(" " * int(self.indent))
-            file.write(_line + "\n")
 
   
 # Extends TextCommand so that run() receives a View to modify.  
-class WrcFormatCommand(sublime_plugin.TextCommand):  
+class FixedWidthCommand(sublime_plugin.TextCommand):  
     def run(self, edit):
         # TODO: change to parameter!
-        numCols = 88
+        numCols = 80
         listOfLines = self.getListOfLines()
         
         # necessary so we start inserting at the bottom of the file
         self.moveCursorToBottomOfRegion(edit)
-        self.printWrcActionHeader(edit, numCols)
+        self.printHeader(edit, numCols)
         self.printListOfLines(edit, listOfLines, numCols)
-        self.printWrcActionFooter(edit)
+        self.printFooter(edit)
         
 
     def getListOfLines(self):
@@ -89,14 +72,14 @@ class WrcFormatCommand(sublime_plugin.TextCommand):
         self.view.insert(edit, self.view.sel()[0].end(), "\n")
         
     
-    def printWrcActionHeader(self, edit, numCols):
+    def printHeader(self, edit, numCols):
         self.view.insert(edit, self.view.sel()[0].end(), "\n\n")
         self.view.insert(edit, self.view.sel()[0].end(), "[ Formatted to " + str(numCols) + " columns wide ]\n")
         self.view.insert(edit, self.view.sel()[0].end(), "\n")
    
-    def printWrcActionFooter(self, edit):
+    def printFooter(self, edit):
         self.view.insert(edit, self.view.sel()[0].end(), "\n")
-        self.view.insert(edit, self.view.sel()[0].end(), "[ End WRC formatting ]\n")
+        self.view.insert(edit, self.view.sel()[0].end(), "[ End formatting ]\n")
 
     def printListOfLines(self, edit, listOfLines, numCols):
         for l in listOfLines:

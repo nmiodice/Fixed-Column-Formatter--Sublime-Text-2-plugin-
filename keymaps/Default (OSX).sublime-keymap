@@ -1,6 +1,6 @@
 [
     { 
     	"keys": ["command+shift+f"],
-    	"command": "fixed_width_formatter"
+    	"command": "fixed_width"
     }
 ]
