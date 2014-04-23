@@ -8,11 +8,6 @@ formatted version will split lines when they exceed the defined maximum
 allowed columns and will ensure the newly created line preserves the
 indentation.
 
-This is particularly helpful when formatting plain text to fit within an 80
-column piece of code, or an email client which may decide to break up your
-nicely formatted text on your behalf. Now you can make the change in your source
-files and let the plugin do the re-formatting for you!
-
 Example:
 --
 A trivial example of what this plugin does follows below. Consider the
@@ -33,7 +28,7 @@ the output may be:
     
     Look at this list:
         1. blah blah blah blah blah blah blah blah
-        blah blah
+        blah blah*
         
         2. hello world!
 
@@ -73,7 +68,9 @@ using whatever keybinding you choose.
 By default the text will be formatted to be at most 80 columns wide.
 However, this is customizable if you launch the plugin with arguments. To
 my knowledge, you can do this in two ways:
+
 1. Through the Sublime Text 2 console (ctrl + `) like so:
+            
             view.run_command("fixed_width",{"numCols":<some integer>})
 
 2. Through a keybinding. This can be done by adding an "args" parameter
