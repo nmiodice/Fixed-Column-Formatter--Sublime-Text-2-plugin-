@@ -7,6 +7,33 @@ Introduction:
     allowed columns and will ensure the newly created line preserves the
     indentation.
 
+Example:
+    A trivial example of what this plugin does follows below. Consider the
+    following piece of text:
+    
+    <example>
+    *This is some example text that will exemplify the effect of this plugin.*
+    
+    *Look at this list:*
+        *1. blah blah blah blah blah blah blah blah blah blah*
+        
+        *2. hello world!*
+    </example>
+    
+    If the plugin is run and a small column width is provided as a parameter,
+    the output may be:
+    
+    <output>
+    *This is some example text that will exemplify*
+    *the effect of this plugin.*
+    
+    *Look at this list:*
+        *1. blah blah blah blah blah blah blah blah*
+        *blah blah*
+        
+        *2. hello world!*
+    </output>
+
 There are a few files of interest:
     1. formatter.py: This is the actual plugin, which does all the text
     manipulation
