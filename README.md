@@ -8,6 +8,11 @@ formatted version will split lines when they exceed the defined maximum
 allowed columns and will ensure the newly created line preserves the
 indentation.
 
+This is particularly helpful when formatting plain text to fit within an 80
+column piece of code, or an email client which may decide to break up your
+nicely formatted text on your behalf. Now you can make the change in your source
+files and let the plugin do the re-formatting for you!
+
 Example:
 --
 A trivial example of what this plugin does follows below. Consider the
@@ -28,7 +33,7 @@ the output may be:
     
     Look at this list:
         1. blah blah blah blah blah blah blah blah
-        blah blah*
+        blah blah
         
         2. hello world!
 
