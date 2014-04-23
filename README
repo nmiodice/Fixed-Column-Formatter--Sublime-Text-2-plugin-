@@ -18,7 +18,7 @@ Installation:
     For example:
         (OSX)
         /Users/{$USERNAME}/Library/Application Support/Sublime Text 2/Packages
-        
+
         (WINDOWS)
         C:\Documents and Settings\{$USERNAME}\Application Data\Sublime
         Text\Packages\User
@@ -34,3 +34,22 @@ Usage Notes:
     those, or more) and do not worry about manually breaking lines to keep the
     formatting preserved. The plugin will do that for you. Then run the plugin
     using whatever keybinding you choose.
+
+    By default the text will be formatted to be at most 80 columns wide.
+    However, this is customizable if you launch the plugin with arguments. To
+    my knowledge, you can do this in two ways:
+        1. Through the Sublime Text 2 console (ctrl + `) like so:
+            view.run_command("fixed_width",{"numCols":<some integer>})
+
+        2. Through a keybinding. This can be done by adding an "args" parameter
+        like so:
+            [
+                {
+                    "keys": ["command+shift+f"],
+                    "command": "fixed_width",
+                    "args": {"numCols": "60"}
+                }
+            ]
+
+
+Enjoy!

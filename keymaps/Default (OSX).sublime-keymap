@@ -1,6 +1,7 @@
 [
     { 
     	"keys": ["command+shift+f"],
-    	"command": "fixed_width"
+    	"command": "fixed_width",
+		"args": {"numCols": "80"}
     }
 ]

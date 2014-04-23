@@ -28,7 +28,7 @@ class line:
     def format(self):
         if (self.content == ""):
             return "\n"
-        lines = textwrap.wrap(self.content, self.numCols - self.indent)
+        lines = textwrap.wrap(self.content, self.numCols - self.indent - 1)
         fmtted = ""
 
         # dont use tabs -- they arent always rendered how we want in
@@ -42,9 +42,9 @@ class line:
   
 # Extends TextCommand so that run() receives a View to modify.  
 class FixedWidthCommand(sublime_plugin.TextCommand):  
-    def run(self, edit):
-        # TODO: change to parameter!
-        numCols = 80
+    def run(self, edit, numCols = 80):
+        if (type(numCols) != int):
+            numCols = int(numCols)
         listOfLines = self.getListOfLines()
         
         # necessary so we start inserting at the bottom of the file
