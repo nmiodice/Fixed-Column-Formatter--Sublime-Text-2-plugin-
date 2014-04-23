@@ -2,6 +2,6 @@
     { 
     	"keys": ["ctrl+shift+f"],
     	"command": "fixed_width",
-		"args": {"numCols": "80"}
+        "args": {"numCols": "80"}
     }
 ]
