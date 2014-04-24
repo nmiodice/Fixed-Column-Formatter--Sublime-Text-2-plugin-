@@ -31,8 +31,8 @@ class line:
         lines = textwrap.wrap(self.content, self.numCols - self.indent - 1)
         fmtted = ""
 
-        # dont use tabs -- they arent always rendered how we want in
-        # a browser text field
+        # don't use tabs -- they aren't always rendered how we want in
+        # various text fields
         for line in lines:
             fmtted = fmtted + (" " * int(self.indent))
             fmtted = fmtted + line + "\n"
@@ -45,47 +45,31 @@ class FixedWidthCommand(sublime_plugin.TextCommand):
     def run(self, edit, numCols = 80):
         if (type(numCols) != int):
             numCols = int(numCols)
-        listOfLines = self.getListOfLines()
         
-        # necessary so we start inserting at the bottom of the file
-        self.moveCursorToBottomOfRegion(edit)
-        self.printHeader(edit, numCols)
-        self.printListOfLines(edit, listOfLines, numCols)
-        self.printFooter(edit)
+        # here, each region is a selected area of text
+        for region in self.view.sel():
+            if not region.empty():  
+                listOfLines = self.getListOfLines(region)
+                newRegionString = self.getReplacementString(listOfLines, numCols)
+                self.view.replace(edit, region, newRegionString)
+
         
-
-    def getListOfLines(self):
-        content = self.view.substr(sublime.Region(0, self.view.size()))
-        return content.split('\n')
-
-    def moveCursorToBottomOfRegion(self, edit):
-        screenful = self.view.visible_region()
-
-        # calculate last row / col of the visible region
-        row = self.view.rowcol(screenful.b)[0]
-        col = self.view.rowcol(screenful.b)[1]
-        target = self.view.text_point(row, 1000000)
-
-        self.view.sel().clear()
-        self.view.sel().add(sublime.Region(target))
-
-        self.view.insert(edit, self.view.sel()[0].end(), "\n")
-        
-    
-    def printHeader(self, edit, numCols):
-        self.view.insert(edit, self.view.sel()[0].end(), "\n\n")
-        self.view.insert(edit, self.view.sel()[0].end(), "[ Formatted to " + str(numCols) + " columns wide ]\n")
-        self.view.insert(edit, self.view.sel()[0].end(), "\n")
-   
-    def printFooter(self, edit):
-        self.view.insert(edit, self.view.sel()[0].end(), "\n")
-        self.view.insert(edit, self.view.sel()[0].end(), "[ End formatting ]\n")
-
-    def printListOfLines(self, edit, listOfLines, numCols):
+    def getReplacementString(self, listOfLines, numCols):
+        newRegionString = ""
         for l in listOfLines:
             lineObj = line(l, numCols)
             formattedLine = lineObj.format()
-            self.view.insert(edit, self.view.sel()[0].end(), formattedLine)
+            newRegionString = newRegionString + formattedLine
 
+        # the line formatter appends a new line to the end of each line, which
+        # should be removed from the end of each region. Otherwise, an extra
+        # newline will be printed after each selected region
+        if (newRegionString[-1] == '\n'):
+            newRegionString = newRegionString[0:-1]
+        return newRegionString
+
+    def getListOfLines(self, region):
+        content = self.view.substr(region)
+        return content.split('\n')
 
 
