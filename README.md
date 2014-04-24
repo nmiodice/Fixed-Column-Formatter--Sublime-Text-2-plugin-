@@ -28,7 +28,7 @@ the output may be:
     
     Look at this list:
         1. blah blah blah blah blah blah blah blah
-        blah blah*
+        blah blah
         
         2. hello world!
 
